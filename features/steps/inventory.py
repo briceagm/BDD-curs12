@@ -11,7 +11,7 @@ def step_impl(context):
     assert context.inventory_page.get_products_count() == 6
 
 
-@Given('I am not log in user')
+@Given('I am not a log in user')
 def step_impl(context):
     pass
 
@@ -31,3 +31,28 @@ def step_impl(context):
     expected_error_message = "Epic sadface: You can only access '/inventory.html' when you are logged in."
     assert context.login_page.get_error_message() == expected_error_message
 
+
+@Given("I am a logged in user")
+def step_impl(context):
+    context.login_page.get_page()
+    context.login_page.login("standard_user", "secret_sauce")
+
+
+@Given("I am on the Inventory Page")
+def step_impl(context):
+    context.inventory_page.get_page()
+
+
+@When("I add a product to cart")
+def step_impl(context):
+    context.inventory_page.add_product_to_cart()
+
+
+@Then("The  product button changes to remove")
+def step_impl(context):
+    assert context.inventory_page.remove_button_exists()
+
+
+@Then("The cart button is incremented by one")
+def step_impl(context):
+    assert context.inventory_page.get_cart_badge_counter() == '1'
