@@ -8,7 +8,7 @@ Feature: Inventory Page
 
 
   Scenario: Redirect to login Page when unauthenticated user
-    Given I am not log in user
+    Given I am not a log in user
     When I go to the Inventory Page
     Then I am redirected to Login Page
     And I receive a Sad Face message
